@@ -8,8 +8,8 @@ echo "Installing karpenter"
 echo "=========================="
 source environmentVariables.sh
 
-kubectl config use-context akaasif-Isengard@${CLUSTER_NAME}.${AWS_REGION}.eksctl.io
-kubectl config current-context
+#kubectl config use-context akaasif-Isengard@${CLUSTER_NAME}.${AWS_REGION}.eksctl.io
+#kubectl config current-context
 
 echo $CLUSTER_NAME $KARPENTER_VERSION $AWS_REGION $ACCOUNT_ID $TEMPOUT
 
