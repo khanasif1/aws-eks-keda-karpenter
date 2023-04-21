@@ -6,7 +6,7 @@ echo "=========================="
 echo "Installing Cluster"
 echo "=========================="
 source environmentVariables.sh
-echo $CLUSTER_NAME $KARPENTER_VERSION $AWS_REGION $ACCOUNT_ID $TEMPOUT
+echo $CLUSTER_NAME  "|" $KARPENTER_VERSION  "|" $AWS_REGION "|"  $ACCOUNT_ID "|"  $TEMPOUT
 
 if [ -z $CLUSTER_NAME ] || [ -z $KARPENTER_VERSION ] || [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ];then
 echo "Run environmentVariables.sh file"

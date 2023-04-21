@@ -17,7 +17,7 @@ spec:
     metadata:
       queueURL: https://sqs.us-west-1.amazonaws.com/809980971988/keda-queue.fifo
       queueLength: "2"
-      awsRegion: "us-west-1"
+      awsRegion: us-west-1
       identityOwner: operator
 ---
 apiVersion: keda.sh/v1alpha1

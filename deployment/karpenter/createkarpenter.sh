@@ -11,7 +11,7 @@ source environmentVariables.sh
 #kubectl config use-context akaasif-Isengard@${CLUSTER_NAME}.${AWS_REGION}.eksctl.io
 #kubectl config current-context
 
-echo $CLUSTER_NAME $KARPENTER_VERSION $AWS_REGION $ACCOUNT_ID $TEMPOUT
+echo $CLUSTER_NAME "|"  $KARPENTER_VERSION  "|" $AWS_REGION  "|" $ACCOUNT_ID  "|" $TEMPOUT
 
 if [ -z $CLUSTER_NAME ] || [ -z $KARPENTER_VERSION ] || [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ];then
 echo "Run environmentVariables.sh file"

@@ -3,7 +3,7 @@
     "Statement": [
         {
             "Effect": "Allow",
-            "Action": "dynamodb:*",
+            "Action": "sqs:*",
             "Resource": "*"
         }
     ]
