@@ -27,6 +27,7 @@ aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name ${CLUSTER_NAME} -
 fi
 # Delete eks cluster
 #eksctl delete cluster --name eks-keda-scale --region  us-west-1#
-  
-echo "Completed"
+echo "==========================" 
+echo "Cluster Completed"
+echo "=========================="
 fi

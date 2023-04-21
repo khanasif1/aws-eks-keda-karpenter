@@ -121,6 +121,7 @@ spec:
     NodeType: "karpenter-workshop"
     IntentLabel: "apps"
 EOF
-
-echo "Completed"
+echo "=========================="
+echo "Karpenter Completed"
+echo "=========================="
 fi
