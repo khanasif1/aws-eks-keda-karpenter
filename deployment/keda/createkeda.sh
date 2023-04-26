@@ -64,20 +64,20 @@ aws iam attach-role-policy --role-name ${IAM_KEDA_ROLE} --policy-arn=arn:aws:iam
 echo "Attach dynamo polciy to Keda role"
 aws iam attach-role-policy --role-name ${IAM_KEDA_ROLE} --policy-arn=arn:aws:iam::${ACCOUNT_ID}:policy/${IAM_KEDA_DYNAMO_POLICY}
 
-ATTCH_POLICY_LIST=$(aws iam list-attached-role-policies --role-name ${IAM_KEDA_ROLE} --output text
+ATTCH_POLICY_LIST=$(aws iam list-attached-role-policies --role-name ${IAM_KEDA_ROLE} --output text)
 echo "ATTCH_POLICY_LIST : ${ATTCH_POLICY_LIST}"
 # Add a new  Kubernetes service account and attach keda-role
 echo "Create a K8s service account and attach role"
-kubectl create namespace keda-test 
+kubectl create namespace keda-test1 
 cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: ${SERVICE_ACCOUNT}
-  namespace: keda-test
+  namespace: keda-test1
 EOF
 echo "Map k8s service account to IAM role"
-kubectl annotate serviceaccount -n keda-test keda-service-account eks.amazonaws.com/role-arn=arn:aws:iam::${ACCOUNT_ID}:role/${IAM_KEDA_ROLE}
+kubectl annotate serviceaccount -n keda-test1 keda-service-account eks.amazonaws.com/role-arn=arn:aws:iam::${ACCOUNT_ID}:role/${IAM_KEDA_ROLE}
 
 
 

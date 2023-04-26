@@ -3,15 +3,15 @@
 #******************
  source ./deployment/environmentVariables.sh
 
-# echo "Cluster!!"
-# echo "print cluster Parameters \n"
-# echo $CLUSTER_NAME  "|" $KARPENTER_VERSION  "|" $AWS_REGION "|"  $ACCOUNT_ID "|"  $TEMPOUT
-# ./deployment/cluster/createCluster.sh
+echo "Cluster!!"
+echo "print cluster Parameters \n"
+echo $CLUSTER_NAME  "|" $KARPENTER_VERSION  "|" $AWS_REGION "|"  $ACCOUNT_ID "|"  $TEMPOUT
+./deployment/cluster/createCluster.sh
 
-# echo "Karpenter!!"
-# echo "print karpenter Parameters \n"
-# echo $CLUSTER_NAME "|"  $KARPENTER_VERSION  "|" $AWS_REGION  "|" $ACCOUNT_ID  "|" $TEMPOUT
-# ./deployment/karpenter/createkarpenter.sh
+echo "Karpenter!!"
+echo "print karpenter Parameters \n"
+echo $CLUSTER_NAME "|"  $KARPENTER_VERSION  "|" $AWS_REGION  "|" $ACCOUNT_ID  "|" $TEMPOUT
+./deployment/karpenter/createkarpenter.sh
 
 
 echo "KEDA!!"
