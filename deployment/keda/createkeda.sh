@@ -5,10 +5,12 @@
 echo "=========================="
 echo "Deploy KEDA"
 echo "=========================="
+source ./deployment/environmentVariables.sh
+OIDC_PROVIDER=$(aws eks describe-cluster --name ${CLUSTER_NAME} --region ${AWS_REGION} --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///")
 
 echo "This deployment will target AWS SQS trigger for keda"
 
-if [ -z $CLUSTER_NAME ] ||  [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ] || [ -z $OIDC_PROVIDER ] || [ -z $IAM_KEDA_ROLE ] || [ -z $SERVICE_ACCOUNT ] || [ -z $NAMESPACE ] || [ -z $SQS_TARGET_NAMESPACE ] || [ -z $SQS_TARGET_DEPLOYMENT ] || [ -z $SQS_QUEUE_URL ];then
+if [ -z $CLUSTER_NAME ] ||  [ -z $AWS_REGION ] || [ -z $IAM_KEDA_SQS_POLICY ] || [ -z $IAM_KEDA_DYNAMO_POLICY ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ] || [ -z $OIDC_PROVIDER ] || [ -z $IAM_KEDA_ROLE ] || [ -z $SERVICE_ACCOUNT ] || [ -z $NAMESPACE ] || [ -z $SQS_TARGET_NAMESPACE ] || [ -z $SQS_TARGET_DEPLOYMENT ] || [ -z $SQS_QUEUE_URL ];then
 echo "Run environmentVariables.sh file"
 exit 1;
 else
@@ -16,13 +18,13 @@ else
 echo "====Installing keda====="
 #Deploy SQS access policy
 echo "Deploy SQS access policy"
-aws iam create-policy --policy-name keda-awssqs-policy --policy-document file://deployment/keda/sqsPolicy.json
-
+SQS_POLICY=$(aws iam create-policy --policy-name ${IAM_KEDA_SQS_POLICY} --policy-document file://deployment/keda/sqsPolicy.json --output text --query Policy.Arn)
+echo "ARN : ${SQS_POLICY}"
 #Deploy Dynamo access policy
 # This is needed in context to our sample application, its not a KEDA requirement 
 echo "Deploy Dynamo access policy. !!This is needed in context to our sample application, its not a KEDA requirement!!"
-aws iam create-policy --policy-name keda-awsdynamo-policy --policy-document file://deployment/keda/dynamoPolicy.json
-
+DYNAMO_POLICY=$(aws iam create-policy --policy-name ${IAM_KEDA_DYNAMO_POLICY} --policy-document file://deployment/keda/dynamoPolicy.json  --output text --query Policy.Arn)
+echo "ARN : ${DYNAMO_POLICY}"
 
 
 
@@ -56,9 +58,9 @@ EOF
 echo "Create role for KedaOperator to access SQS for poling and generate STS for operator to connect with AWS resources"
 aws iam create-role --role-name ${IAM_KEDA_ROLE}  --assume-role-policy-document file://deployment/keda/trust-relationship.json --description "keda role-description"
 echo "Attach SQS polciy to Keda role"
-aws iam attach-role-policy --role-name ${IAM_KEDA_ROLE} --policy-arn=arn:aws:iam::${ACCOUNT_ID}:policy/keda-awssqs-policy
+aws iam attach-role-policy --role-name ${IAM_KEDA_ROLE} --policy-arn=arn:aws:iam::${ACCOUNT_ID}:policy/${IAM_KEDA_SQS_POLICY}
 echo "Attach dynamo polciy to Keda role"
-aws iam attach-role-policy --role-name ${IAM_KEDA_ROLE} --policy-arn=arn:aws:iam::${ACCOUNT_ID}:policy/keda-awsdynamo-policy
+aws iam attach-role-policy --role-name ${IAM_KEDA_ROLE} --policy-arn=arn:aws:iam::${ACCOUNT_ID}:policy/${IAM_KEDA_DYNAMO_POLICY}
 
 aws iam list-attached-role-policies --role-name ${IAM_KEDA_ROLE} --output text
 

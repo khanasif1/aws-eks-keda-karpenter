@@ -33,7 +33,7 @@ operator:
 
 metricsServer:
   replicaCount: 1
-  # use ClusterFirstWithHostNet if  https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/\#pod-s-dns-policy
+  # use ClusterFirstWithHostNet if  https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
   dnsPolicy: ClusterFirst
   useHostNetwork: false
   # -- Affinity for pod scheduling https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/ for Metrics API Server. Takes precedence over the  field
@@ -98,17 +98,17 @@ serviceAccount:
   automountServiceAccountToken: true
   # Annotations to add to the service account
   annotations: 
-    eks.amazonaws.com/role-arn: arn:aws:iam::809980971988:role/keda-master-role 
+    eks.amazonaws.com/role-arn: arn:aws:iam::809980971988:role/keda-oregon-role 
 
 podIdentity:
   activeDirectory:
     # Set to the value of the Azure Active Directory Pod Identity
-    # See https://keda.sh/docs/concepts/authentication/\#azure-pod-identity
+    # See https://keda.sh/docs/concepts/authentication/#azure-pod-identity
     # This will be set as a label on the KEDA Pod(s)
     identity: ""
   azureWorkload:
     # Set to true to enable Azure Workload Identity usage.
-    # See https://keda.sh/docs/concepts/authentication/\#azure-workload-identity
+    # See https://keda.sh/docs/concepts/authentication/#azure-workload-identity
     # This will be set as a label on the KEDA service account.
     enabled: false
     # Set to the value of the Azure Active Directory Client and Tenant Ids

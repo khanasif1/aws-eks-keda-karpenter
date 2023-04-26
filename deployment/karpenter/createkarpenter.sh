@@ -6,7 +6,9 @@
 echo "=========================="
 echo "Installing karpenter"
 echo "=========================="
-source environmentVariables.sh
+
+source ./deployment/environmentVariables.sh
+
 
 #kubectl config use-context akaasif-Isengard@${CLUSTER_NAME}.${AWS_REGION}.eksctl.io
 #kubectl config current-context
