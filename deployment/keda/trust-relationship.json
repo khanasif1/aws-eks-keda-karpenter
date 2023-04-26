@@ -4,13 +4,13 @@
     {
       "Effect": "Allow",
       "Principal": {
-        "Federated": "arn:aws:iam::809980971988:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/777008946F88A7F4C4D5B500296696FD"
+        "Federated": "arn:aws:iam::809980971988:oidc-provider/oidc.eks.us-west-2.amazonaws.com/id/7B764A1CE6D276448AD5366BC6E81EB7"
       },
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "oidc.eks.us-west-2.amazonaws.com/id/777008946F88A7F4C4D5B500296696FD:aud": "sts.amazonaws.com",
-          "oidc.eks.us-west-2.amazonaws.com/id/777008946F88A7F4C4D5B500296696FD:sub": [
+          "oidc.eks.us-west-2.amazonaws.com/id/7B764A1CE6D276448AD5366BC6E81EB7:aud": "sts.amazonaws.com",
+          "oidc.eks.us-west-2.amazonaws.com/id/7B764A1CE6D276448AD5366BC6E81EB7:sub": [
             "system:serviceaccount:keda:keda-operator",
             "system:serviceaccount:keda-test:keda-service-account"
           ]
