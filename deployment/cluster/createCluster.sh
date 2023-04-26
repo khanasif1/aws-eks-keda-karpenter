@@ -6,7 +6,6 @@ echo "=========================="
 echo "Installing Cluster"
 echo "=========================="
 source environmentVariables.sh
-echo $CLUSTER_NAME  "|" $KARPENTER_VERSION  "|" $AWS_REGION "|"  $ACCOUNT_ID "|"  $TEMPOUT
 
 if [ -z $CLUSTER_NAME ] || [ -z $KARPENTER_VERSION ] || [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ];then
 echo "Run environmentVariables.sh file"
@@ -22,7 +21,7 @@ echo "Cluster does not exists"
 echo "create a eks cluster"
 
 eksctl create cluster --name ${CLUSTER_NAME} --region ${AWS_REGION}
-aws eks describe-cluster --region ${AWS_DEFAULT_REGION} --name ${CLUSTER_NAME} --query "cluster.status"
+aws eks describe-cluster --region ${AWS_REGION} --name ${CLUSTER_NAME} --query "cluster.status"
 
 fi
 # Delete eks cluster

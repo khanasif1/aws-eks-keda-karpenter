@@ -7,7 +7,12 @@ echo "Deploy KEDA"
 echo "=========================="
 
 echo "This deployment will target AWS SQS trigger for keda"
- 
+
+if [ -z $CLUSTER_NAME ] ||  [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ] || [ -z $OIDC_PROVIDER ] || [ -z $IAM_KEDA_ROLE ] || [ -z $SERVICE_ACCOUNT ] || [ -z $NAMESPACE ] || [ -z $SQS_TARGET_NAMESPACE ] || [ -z $SQS_TARGET_DEPLOYMENT ] || [ -z $SQS_QUEUE_URL ];then
+echo "Run environmentVariables.sh file"
+exit 1;
+else
+
 echo "====Installing keda====="
 #Deploy SQS access policy
 echo "Deploy SQS access policy"
@@ -94,3 +99,4 @@ echo "=========================="
 echo "KEDA Completed"
 echo "=========================="
 
+fi
