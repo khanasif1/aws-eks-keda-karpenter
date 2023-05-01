@@ -26,10 +26,10 @@ docker logout public.ecr.aws
 #Create the KarpenterNode IAM Role
 echo "Create the KarpenterNode IAM Role"
 
-curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-eksctl/cloudformation.yaml  > $TEMPOUT \
-&& aws cloudformation deploy \
+# curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-eksctl/cloudformation.yaml  > $TEMPOUT \&& 
+aws cloudformation deploy \
   --stack-name "Karpenter-${CLUSTER_NAME}" \
-  --template-file "${TEMPOUT}" \
+  --template-file "./deployment/karpenter/cloudformation.yaml" \
   --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides "ClusterName=${CLUSTER_NAME}" \
   --region ${AWS_REGION}
