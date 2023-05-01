@@ -33,5 +33,3 @@ spec:
   podIdentity:
     provider: aws-eks
 EOF
-
-fi

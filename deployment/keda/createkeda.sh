@@ -27,7 +27,7 @@ DYNAMO_POLICY=$(aws iam create-policy --policy-name ${IAM_KEDA_DYNAMO_POLICY} --
 echo "ARN : ${DYNAMO_POLICY}"
 
 
-
+OIDC_PROVIDER=$(aws eks describe-cluster --name ${CLUSTER_NAME} --region ${AWS_REGION} --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///")
 echo "Create a trusted relation in role for STS"
 #Create Role Trusted Relation 
 cat >./deployment/keda/trust-relationship.json <<EOF
@@ -92,7 +92,7 @@ kubectl create namespace keda
 helm install keda kedacore/keda --values ./deployment/keda/value.yaml --namespace keda
 
 echo "=== Deploy KEDA Scaleobject ==="
-./deployment/keda/keda-scaleobject.sh
+sh ./deployment/keda/keda-scaleobject.sh
 kubectl apply -f ./deployment/keda/kedaScaleObject.yaml
 
 # deploy the application to read queue
@@ -102,5 +102,4 @@ kubectl apply -f ./deployment/app/keda-python-app.yaml
 echo "=========================="
 echo "KEDA Completed"
 echo "=========================="
-
 fi

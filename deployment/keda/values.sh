@@ -1,7 +1,5 @@
 echo "=====Deploy KEDA VALUES.sh===="
-# Default values for keda.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+
 cat >./deployment/keda/value.yaml <<EOF
 image:
   keda:

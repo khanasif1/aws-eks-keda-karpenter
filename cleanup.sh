@@ -19,7 +19,7 @@ aws cloudformation wait stack-delete-complete  --region ${AWS_REGION}  --stack-n
 done
 
 # Delete IAM Roles
-
+echo "Deleting Role"
 
 for policy in $(aws iam list-attached-role-policies --role-name ${IAM_KEDA_ROLE} --output text --query 'AttachedPolicies[*].PolicyName')
 do
@@ -33,15 +33,27 @@ done
 echo "Deleting role : ${IAM_KEDA_ROLE}"
 aws iam delete-role --role-name ${IAM_KEDA_ROLE}
 
+echo "Delete IAM policies, if missed earlier"
 # Delete IAM policies
+#Deleting the policies if missed during role deletion process
+isSQSPolicyExist=$(aws iam list-policies --output text --query 'Policies[?PolicyName==`'${IAM_KEDA_SQS_POLICY}'`].PolicyName')
+echo $isSQSPolicyExist
+if [ ! -z $isSQSPolicyExist ];then
+echo "Deleting policy :"$IAM_KEDA_SQS_POLICY
+aws iam delete-policy --policy-arn arn:aws:iam::${ACCOUNT_ID}:policy/${IAM_KEDA_SQS_POLICY}
+else
+echo "policy ${IAM_KEDA_SQS_POLICY} already deleted"
+fi
 
-# echo "Deleting policy : ${IAM_KEDA_SQS_POLICY}"
-# aws iam delete-policy --policy-arn arn:aws:iam::${ACCOUNT_ID}:policy/${IAM_KEDA_SQS_POLICY}
-# echo "Deleting policy : ${IAM_KEDA_DYNAMO_POLICY}"
-# aws iam delete-policy --policy-arn arn:aws:iam::${ACCOUNT_ID}:policy/${IAM_KEDA_DYNAMO_POLICY}
+isDynamoPolicyExist=$(aws iam list-policies --output text --query 'Policies[?PolicyName==`'${IAM_KEDA_DYNAMO_POLICY}'`].PolicyName')
+echo $isDynamoPolicyExist
+if [ ! -z $isDynamoPolicyExist ];then
+echo "Deleting policy :"$IAM_KEDA_DYNAMO_POLICY
+aws iam delete-policy --policy-arn arn:aws:iam::${ACCOUNT_ID}:policy/${IAM_KEDA_DYNAMO_POLICY}
+else
+echo "policy ${IAM_KEDA_DYNAMO_POLICY} already deleted"
+fi
 
-
-
-
-
-lkhar@
+#******************
+# Clean Completed
+#******************
