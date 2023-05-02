@@ -14,8 +14,17 @@ source ./deployment/environmentVariables.sh
 echo "Find all CFN stack names which has cluster name"
 for stack in $(aws cloudformation describe-stacks  --region ${AWS_REGION} --output text --query 'Stacks[?StackName!=`null`]|[?contains(StackName, `'${CLUSTER_NAME}'`) == `true`].StackName')
 do 
-echo "Deleting stacks : ${stack}"
-aws cloudformation wait stack-delete-complete  --region ${AWS_REGION}  --stack-name $stack
+SUB='nodegroup'
+if [[ "$stack" == *"$SUB"* ]]; then
+  echo "Deleting stacks : ${stack}"
+  echo "Node group"
+  aws cloudformation delete-stack --stack-name $stack --region ${AWS_REGION}
+  aws cloudformation wait stack-delete-complete  --region ${AWS_REGION}  --stack-name $stack
+else
+  echo "Deleting stacks : ${stack}"
+  echo "other stack" 
+  aws cloudformation delete-stack --stack-name $stack --region ${AWS_REGION}
+fi
 done
 
 # Delete IAM Roles
@@ -36,6 +45,7 @@ aws iam delete-role --role-name ${IAM_KEDA_ROLE}
 echo "Delete IAM policies, if missed earlier"
 # Delete IAM policies
 #Deleting the policies if missed during role deletion process
+
 isSQSPolicyExist=$(aws iam list-policies --output text --query 'Policies[?PolicyName==`'${IAM_KEDA_SQS_POLICY}'`].PolicyName')
 echo $isSQSPolicyExist
 if [ ! -z $isSQSPolicyExist ];then
