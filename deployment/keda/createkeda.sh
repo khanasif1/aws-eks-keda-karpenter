@@ -92,7 +92,7 @@ kubectl create namespace keda
 helm install keda kedacore/keda --values ./deployment/keda/value.yaml --namespace keda
 
 echo "=== Deploy KEDA Scaleobject ==="
-sh ./deployment/keda/keda-scaleobject.sh
+./deployment/keda/keda-scaleobject.sh
 kubectl apply -f ./deployment/keda/kedaScaleObject.yaml
 
 # deploy the application to read queue
