@@ -3,9 +3,9 @@
 # Deploy Karpenter
 #*************************
 ## SWITCH CLUSTER CONTEXT
-echo "=========================="
-echo "Installing karpenter"
-echo "=========================="
+echo "${GREEN}=========================="
+echo "${GREEN}Installing karpenter"
+echo "${GREEN}=========================="
 
 source ./deployment/environmentVariables.sh
 
@@ -16,15 +16,15 @@ source ./deployment/environmentVariables.sh
 
 
 if [ -z $CLUSTER_NAME ] || [ -z $KARPENTER_VERSION ] || [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ];then
-echo "Run environmentVariables.sh file"
+echo "${RED}Run environmentVariables.sh file"
 exit 1;
 else 
-echo "**Installing karpenter**"
+echo "${GREEN}**Installing karpenter**"
 # If you have login with docker in shell  execute below first
 docker logout public.ecr.aws
 
 #Create the KarpenterNode IAM Role
-echo "Create the KarpenterNode IAM Role"
+echo "${GREEN}Create the KarpenterNode IAM Role"
 
 # curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-eksctl/cloudformation.yaml  > $TEMPOUT \&& 
 aws cloudformation deploy \
@@ -123,7 +123,7 @@ spec:
     NodeType: "karpenter-workshop"
     IntentLabel: "apps"
 EOF
-echo "=========================="
-echo "Karpenter Completed"
-echo "=========================="
+echo "${GREEN}=========================="
+echo "${GREEN}Karpenter Completed"
+echo "${GREEN}=========================="
 fi

@@ -13,3 +13,9 @@ export IAM_KEDA_DYNAMO_POLICY="keda-oregon-dynamo"
 export SQS_QUEUE_URL="https://sqs.${AWS_REGION}.amazonaws.com/${ACCOUNT_ID}/keda-queue.fifo"
 export SQS_TARGET_DEPLOYMENT="sqs-app"
 export SQS_TARGET_NAMESPACE="keda-test"
+# echo colour
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+CYAN=$(tput setaf 6)
+BLUE=$(tput setaf 4)
+NC=$(tput sgr0)

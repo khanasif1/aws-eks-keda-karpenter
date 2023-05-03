@@ -2,23 +2,23 @@
 #*************************
 # Create a Cluster with Karpenter
 #************************* 
-echo "=========================="
-echo "Installing Cluster"
-echo "=========================="
+echo "${GREEN}=========================="
+echo "${GREEN}Installing Cluster"
+echo "${GREEN}=========================="
 source ./deployment/environmentVariables.sh
 
 if [ -z $CLUSTER_NAME ] || [ -z $KARPENTER_VERSION ] || [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ];then
-echo "Run environmentVariables.sh file"
+echo "${RED}Proceed deployment"Run environmentVariables.sh file"
 exit 1;
 else 
-echo "**Start cluster provisioning**"
+echo "${GREEN}**Start cluster provisioning**"
 
 CHECK_CLUSTER=$(aws eks list-clusters | jq -r ".clusters" | grep $CLUSTER_NAME || true)
 if [ ! -z $CHECK_CLUSTER ];then
-echo "Cluster Exists"
+echo "${BLUE}Cluster Exists"
 else
-echo "Cluster does not exists"
-echo "create a eks cluster"
+echo "${YELLOW}Cluster does not exists"
+echo "${GREEN} !!Create a eks cluster !!"
 
 eksctl create cluster --name ${CLUSTER_NAME} --region ${AWS_REGION}
 #aws eks describe-cluster --region ${AWS_REGION} --name ${CLUSTER_NAME} --query "cluster.status"
@@ -26,7 +26,7 @@ eksctl create cluster --name ${CLUSTER_NAME} --region ${AWS_REGION}
 fi
 # Delete eks cluster
 #eksctl delete cluster --name eks-keda-scale --region  us-west-1#
-echo "==========================" 
-echo "Cluster Completed"
-echo "=========================="
+echo "${GREEN}==========================" 
+echo "${GREEN}Cluster Completed"
+echo "${GREEN}=========================="
 fi
