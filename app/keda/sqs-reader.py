@@ -3,16 +3,23 @@ import json
 import time
 import uuid
 from datetime import datetime
+import os
+from os import environ
 
 # create a function to add numbers
 starttime = time.time()
+if 'sqsUrl' in os.environ:
+    queue_url = os.environ['sqsUrl']
+    print (f'SQS URL : {queue_url}')
+else:
+    print ('SQS URL Missing!!!!!')
 
-#queue_url = "https://sqs.us-west-1.amazonaws.com/809980971988/keda-queue"
-queue_url = "https://sqs.us-west-1.amazonaws.com/809980971988/keda-queue.fifo"
-        
-#_id=str(uuid.uuid1())
+#queue_url = "https://sqs.us-west-1.amazonaws.com/809980971988/keda-queue.fifo"
+
+
 _id = "a3b01bb8-da7c-11ed-aae2-5227b566f9a7"
 def receive_message():
+    print(f'queue_url {queue_url}')
     try:
         print("Start fn receive message")
         sqs_client = boto3.client("sqs", region_name="us-west-1")
@@ -111,3 +118,4 @@ while True:
         i = i+1'''
     currenttime = time.strftime("%H:%M:%S", t)
     print(f"End SQS Call {currenttime}")
+

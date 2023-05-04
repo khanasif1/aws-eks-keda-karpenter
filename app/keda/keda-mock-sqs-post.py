@@ -2,10 +2,10 @@ import boto3
 import json
 import time
 from datetime import datetime
-# create a function to add numbers
+
 
 #queue_url = "https://sqs.us-west-1.amazonaws.com/809980971988/keda-queue"
-queue_url = "https://sqs.us-west-1.amazonaws.com/809980971988/keda-queue.fifo"
+queue_url = "https://sqs.us-west-1.amazonaws.com/809980971988/keda-demo-queue.fifo"
 
 def send_message(message_body):
     print("Start fn send message")

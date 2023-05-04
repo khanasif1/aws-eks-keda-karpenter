@@ -7,13 +7,6 @@ echo "${RED}******************************************************"
 echo "${CYAN}Load variables"
 source ./deployment/environmentVariables.sh
 
-
-# aws cloudformation describe-stacks --no-paginate --region us-west-2 --output text --query 'Stacks[?StackName!=`null`]|[?contains(StackName, `'$CLUSTER_NAME'`) == `true`].StackName'
-
-
-# stack=$(aws cloudformation describe-stacks --no-paginate --region us-west-2 --output text --query \
-#   'Stacks[?StackName!=`null`]|[?contains(StackName, `'${CLUSTER_NAME}'`) == `true`].StackName')
-#
 echo "${RED}Find all CFN stack names which has cluster name"
 for stack in $(aws cloudformation describe-stacks  --region ${AWS_REGION} --output text --query 'Stacks[?StackName!=`null`]|[?contains(StackName, `'${CLUSTER_NAME}'`) == `true`].StackName')
 do 
