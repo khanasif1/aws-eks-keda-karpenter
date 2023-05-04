@@ -19,5 +19,7 @@ spec:
         image: khanasif1/sqs-reader:v0.9
         imagePullPolicy: Always
         env:
-        - name: sqsUrl
+        - name: SQS_QUEUE_URL
           value: https://sqs.us-west-1.amazonaws.com/809980971988/keda-demo-queue.fifo
+        - name: AWS_REGION
+          value: us-west-1

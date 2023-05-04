@@ -2,8 +2,8 @@
 
 docker buildx build -t sqs-reader --platform=linux/amd64 .
 docker login
-docker tag sqs-reader:latest khanasif1/sqs-reader:v0.9
-docker push khanasif1/sqs-reader:v0.9
+docker tag sqs-reader:latest khanasif1/sqs-reader:v0.10
+docker push khanasif1/sqs-reader:v0.10
 
 
 #KARPENTER -Build the image

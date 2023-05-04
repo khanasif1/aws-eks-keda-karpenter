@@ -97,7 +97,36 @@ kubectl apply -f ./deployment/keda/kedaScaleObject.yaml
 
 # deploy the application to read queue
 echo "${CYAN}Deploy application to read SQS"
-kubectl apply -f ./deployment/app/keda-python-app.yaml
+#kubectl apply -f ./deployment/app/keda-python-app.yaml
+
+cat <<EOF | kubectl apply -f -
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sqs-app
+  namespace: keda-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sqs-reader
+  template:
+    metadata:
+      labels:
+        app: sqs-reader
+    spec:
+      serviceAccountName: keda-service-account
+      containers:
+      - name: sqs-pull-app
+        image: khanasif1/sqs-reader:v0.10
+        imagePullPolicy: Always
+        env:
+        - name: SQS_QUEUE_URL
+          value: ${SQS_QUEUE_URL}
+        - name: AWS_REGION
+          value: ${AWS_REGION}
+EOF
+
 
 # Clean temporary config file created by script, to save from future conflicts
 echo "${RED}Deleting files value.yaml, kedaScaleObject.yaml, trust-relationship.json"
