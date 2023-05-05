@@ -16,7 +16,7 @@ source ./deployment/environmentVariables.sh
 
 
 if [ -z $CLUSTER_NAME ] || [ -z $KARPENTER_VERSION ] || [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ];then
-echo "${RED}Run environmentVariables.sh file"
+echo "${RED}Update values & Run environmentVariables.sh file"
 exit 1;
 else 
 echo "${GREEN}**Installing karpenter**"

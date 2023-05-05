@@ -11,17 +11,23 @@ starttime = time.time()
 if 'SQS_QUEUE_URL' in os.environ:
     queue_url = os.environ['SQS_QUEUE_URL']
     region = os.environ['AWS_REGION']
-    print (f'SQS URL : {queue_url} - {region} ')
+    print (f'SQS URL : {queue_url} - region : {region} ')
 else:
     print ('SQS URL Missing!!!!!')
+
+if 'DYNAMODB_TABLE' not in os.environ:
+    print ('DYNAMODB_TABLE details Missing!!!!!')
+else:
+    dynamodb_table = os.environ['DYNAMODB_TABLE']
+    print (f'DYNAMODB_TABLE : {dynamodb_table}')
 
 
 _id = "a3b01bb8-da7c-11ed-aae2-5227b566f9a7"
 def receive_message():
-    print(f'queue_url {queue_url}')
+    print(f'queue_url {queue_url}- region : {region} - Dynamo : {dynamodb_table} ')
     try:
         print("Start fn receive message")
-        sqs_client = boto3.client("sqs", region_name=os.environ['AWS_REGION'])
+        sqs_client = boto3.client("sqs", region_name=region)
         response = sqs_client.receive_message(
             QueueUrl= queue_url,
             AttributeNames=[
@@ -70,8 +76,8 @@ def save_data(_message):
         current_dateTime = datetime.utcnow().strftime(date_format)
         
         print(f"id:{_id}")
-        dynamodb = boto3.resource('dynamodb', region_name="us-west-1")
-        table = dynamodb.Table('payments')
+        dynamodb = boto3.resource('dynamodb', region_name=region)
+        table = dynamodb.Table(dynamodb_table)
         
         
         messageProcessingTime = datetime.utcnow() - datetime.strptime(jsonMessage["srcStamp"],date_format) 

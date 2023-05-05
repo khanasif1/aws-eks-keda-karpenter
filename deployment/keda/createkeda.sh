@@ -11,7 +11,7 @@ OIDC_PROVIDER=$(aws eks describe-cluster --name ${CLUSTER_NAME} --region ${AWS_R
 echo "${CYAN}This deployment will target AWS SQS trigger for keda"
 
 if [ -z $CLUSTER_NAME ] ||  [ -z $AWS_REGION ] || [ -z $IAM_KEDA_SQS_POLICY ] || [ -z $IAM_KEDA_DYNAMO_POLICY ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ] || [ -z $OIDC_PROVIDER ] || [ -z $IAM_KEDA_ROLE ] || [ -z $SERVICE_ACCOUNT ] || [ -z $NAMESPACE ] || [ -z $SQS_TARGET_NAMESPACE ] || [ -z $SQS_TARGET_DEPLOYMENT ] || [ -z $SQS_QUEUE_URL ];then
-echo "${RED}Run environmentVariables.sh file"
+echo "${RED}Update values & Run environmentVariables.sh file"
 exit 1;
 else
 
@@ -94,7 +94,7 @@ helm install keda kedacore/keda --values ./deployment/keda/value.yaml --namespac
 echo "${CYAN}=== Deploy KEDA Scaleobject ==="
 ./deployment/keda/keda-scaleobject.sh
 kubectl apply -f ./deployment/keda/kedaScaleObject.yaml
-
+=
 # deploy the application to read queue
 echo "${CYAN}Deploy application to read SQS"
 #kubectl apply -f ./deployment/app/keda-python-app.yaml
@@ -118,11 +118,13 @@ spec:
       serviceAccountName: keda-service-account
       containers:
       - name: sqs-pull-app
-        image: khanasif1/sqs-reader:v0.10
+        image: khanasif1/sqs-reader:v0.12
         imagePullPolicy: Always
         env:
         - name: SQS_QUEUE_URL
           value: ${SQS_QUEUE_URL}
+        - name: DYNAMODB_TABLE
+          value: ${DYNAMODB_TABLE}
         - name: AWS_REGION
           value: ${AWS_REGION}
 EOF
