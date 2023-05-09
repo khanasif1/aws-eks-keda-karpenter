@@ -13,6 +13,7 @@ source ./deployment/environmentVariables.sh
 #kubectl config use-context akaasif-Isengard@${CLUSTER_NAME}.${AWS_REGION}.eksctl.io
 #kubectl config current-context
 
+kubectl config use-context akaasif-Isengard@eks-karpenter-scale.us-west-1.eksctl.io
 
 
 if [ -z $CLUSTER_NAME ] || [ -z $KARPENTER_VERSION ] || [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ];then

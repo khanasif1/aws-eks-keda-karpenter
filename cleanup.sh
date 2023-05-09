@@ -60,6 +60,20 @@ else
 echo "policy ${IAM_KEDA_DYNAMO_POLICY} already deleted"
 fi
 
+
+SQS_URL=$(aws sqs get-queue-url --queue-name ${SQS_QUEUE_NAME} --output text)
+if [ ! -z $SQS_URL ];then
+echo "${RED}Deleting SQS :"$SQS_URL
+aws sqs delete-queue --queue-url $SQS_URL --region ${AWS_REGION}
+
+fi
+
+DYNAMO_TABLE=$(aws dynamodb describe-table  --table-name ${DYNAMODB_TABLE} --region ${AWS_REGION} --query 'Table.TableName' --output text)
+if [ ! -z $DYNAMO_TABLE ];then
+echo "${RED}Deleting DynamoTable :"$DYNAMO_TABLE
+RESPONSE=$(aws dynamodb delete-table --table-name $DYNAMO_TABLE --region ${AWS_REGION} --output text)
+echo $RESPONSE
+fi
 #******************
 # Clean Completed
 #******************
