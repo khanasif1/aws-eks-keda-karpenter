@@ -48,7 +48,10 @@ if [[ "$user_input" == *"$Entry"* ]]; then
         echo "${GREEN}KEDA!!"
         echo "${YELLOW}print keda Parameters"
         echo $CLUSTER_NAME "||\n"  $AWS_REGION "||\n"  $ACCOUNT_ID  "||\n" $TEMPOUT  "||\n"  $IAM_KEDA_ROLE  "||\n" $IAM_KEDA_SQS_POLICY  "||\n" $SERVICE_ACCOUNT  "||\n" $NAMESPACE  "||\n" $SQS_TARGET_NAMESPACE "||\n"  $SQS_TARGET_DEPLOYMENT "||\n"  $SQS_QUEUE_URL 
-        ./deployment/keda/createkeda.sh        
+        ./deployment/keda/createkeda.sh
+
+        echo "${GREEN}Deploy Demo components DynamoDB and SQS!!"
+        ./deployment/services/awsService.sh 
     fi 
 else
 
