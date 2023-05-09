@@ -9,12 +9,14 @@ echo "${GREEN}=========================="
 
 source ./deployment/environmentVariables.sh
 
-
+echo "${RED} Karpenter will be deployed on cluster $(kubectl config current-context) \n ${RED}Casesenstive ${BLUE}Press Y = Proceed or N = Cancel (change context and run script)"
+read user_input
 #kubectl config use-context akaasif-Isengard@${CLUSTER_NAME}.${AWS_REGION}.eksctl.io
 #kubectl config current-context
+#kubectl config use-context akaasif-Isengard@eks-karpenter-scale.us-west-1.eksctl.io
 
-kubectl config use-context akaasif-Isengard@eks-karpenter-scale.us-west-1.eksctl.io
-
+Entry='Y'
+if [[ "$user_input" == *"$Entry"* ]]; then
 
 if [ -z $CLUSTER_NAME ] || [ -z $KARPENTER_VERSION ] || [ -z $AWS_REGION ] || [ -z $ACCOUNT_ID ] || [ -z $TEMPOUT ];then
 echo "${RED}Update values & Run environmentVariables.sh file"
@@ -26,14 +28,23 @@ docker logout public.ecr.aws
 
 #Create the KarpenterNode IAM Role
 echo "${GREEN}Create the KarpenterNode IAM Role"
+#"./deployment/karpenter/cloudformation.yaml" \
+# curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-karpenter/cloudformation.yaml  > $TEMPOUT \&& 
+# aws cloudformation deploy \
+#   --stack-name "Karpenter-${CLUSTER_NAME}" \
+#   --template-file "${TEMPOUT}" \ 
+#   --capabilities CAPABILITY_NAMED_IAM \
+#   --parameter-overrides "ClusterName=${CLUSTER_NAME}" \
+#   --region ${AWS_REGION}
 
-# curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-eksctl/cloudformation.yaml  > $TEMPOUT \&& 
-aws cloudformation deploy \
+curl -fsSL https://karpenter.sh/"${KARPENTER_VERSION}"/getting-started/getting-started-with-karpenter/cloudformation.yaml  > $TEMPOUT \
+&& aws cloudformation deploy \
   --stack-name "Karpenter-${CLUSTER_NAME}" \
-  --template-file "./deployment/karpenter/cloudformation.yaml" \
+  --template-file "${TEMPOUT}" \
   --capabilities CAPABILITY_NAMED_IAM \
   --parameter-overrides "ClusterName=${CLUSTER_NAME}" \
   --region ${AWS_REGION}
+
 
 #grant access to instances using the profile to connect to the cluster. This command adds the Karpenter node role to your aws-auth configmap, 
 #allowing nodes with this role to connect to the cluster.
@@ -127,4 +138,6 @@ EOF
 echo "${GREEN}=========================="
 echo "${GREEN}Karpenter Completed"
 echo "${GREEN}=========================="
+fi
+
 fi

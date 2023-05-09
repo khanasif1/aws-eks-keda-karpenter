@@ -6,6 +6,12 @@ echo "${GREEN}=========================="
 echo "${GREEN}Deploy KEDA"
 echo "${GREEN}=========================="
 source ./deployment/environmentVariables.sh
+
+echo "${RED} Keda will be deployed on cluster $(kubectl config current-context) \n ${RED}Casesenstive ${BLUE}Press Y = Proceed or N = Cancel (change context and run script)"
+read user_input
+
+Entry='Y'
+if [[ "$user_input" == *"$Entry"* ]]; then
 OIDC_PROVIDER=$(aws eks describe-cluster --name ${CLUSTER_NAME} --region ${AWS_REGION} --query "cluster.identity.oidc.issuer" --output text | sed -e "s/^https:\/\///")
 
 echo "${CYAN}This deployment will target AWS SQS trigger for keda"
@@ -94,7 +100,7 @@ helm install keda kedacore/keda --values ./deployment/keda/value.yaml --namespac
 echo "${CYAN}=== Deploy KEDA Scaleobject ==="
 ./deployment/keda/keda-scaleobject.sh
 kubectl apply -f ./deployment/keda/kedaScaleObject.yaml
-=
+
 # deploy the application to read queue
 echo "${CYAN}Deploy application to read SQS"
 #kubectl apply -f ./deployment/app/keda-python-app.yaml
@@ -139,4 +145,5 @@ rm -f ./deployment/keda/trust-relationship.json
 echo "${GREEN}=========================="
 echo "${GREEN}KEDA Completed"
 echo "${GREEN}=========================="
+fi
 fi

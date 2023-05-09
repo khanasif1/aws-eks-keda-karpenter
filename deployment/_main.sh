@@ -18,18 +18,22 @@ if [[ "$user_input" == *"$Entry"* ]]; then
         echo "Cluster!!"
         echo "${YELLOW}print cluster Parameters \n"
         echo $CLUSTER_NAME  "|" $KARPENTER_VERSION  "|" $AWS_REGION "|"  $ACCOUNT_ID "|"  $TEMPOUT
+        chmod u+x ./deployment/cluster/createCluster.sh
         ./deployment/cluster/createCluster.sh
+        
     elif [[ "$user_input" == $CLUSTER_KARPENTER ]]; then
         echo "Deploy EKS & Karpenter"
         echo "${GREEN} Proceed deployment"
         echo "Cluster!!"
         echo "${YELLOW}print cluster Parameters \n"
         echo $CLUSTER_NAME  "|" $KARPENTER_VERSION  "|" $AWS_REGION "|"  $ACCOUNT_ID "|"  $TEMPOUT
+        chmod u+x ./deployment/cluster/createCluster.sh
         ./deployment/cluster/createCluster.sh
 
         echo "${GREEN}Karpenter!!"
         echo "${YELLOW}print karpenter Parameters \n"
         echo $CLUSTER_NAME "|"  $KARPENTER_VERSION  "|" $AWS_REGION  "|" $ACCOUNT_ID  "|" $TEMPOUT
+        chmod u+x ./deployment/karpenter/createkarpenter.sh
         ./deployment/karpenter/createkarpenter.sh
 
     elif [[ "$user_input" == $CLUSTER_KARPENTER_KEDA ]]; then
@@ -38,19 +42,23 @@ if [[ "$user_input" == *"$Entry"* ]]; then
         echo "Cluster!!"
         echo "${YELLOW}print cluster Parameters \n"
         echo $CLUSTER_NAME  "|" $KARPENTER_VERSION  "|" $AWS_REGION "|"  $ACCOUNT_ID "|"  $TEMPOUT
+        chmod u+x ./deployment/cluster/createCluster.sh
         ./deployment/cluster/createCluster.sh
 
         echo "${GREEN}Karpenter!!"
         echo "${YELLOW}print karpenter Parameters \n"
         echo $CLUSTER_NAME "|"  $KARPENTER_VERSION  "|" $AWS_REGION  "|" $ACCOUNT_ID  "|" $TEMPOUT
+        chmod u+x ./deployment/karpenter/createkarpenter.sh
         ./deployment/karpenter/createkarpenter.sh
 
         echo "${GREEN}KEDA!!"
         echo "${YELLOW}print keda Parameters"
         echo $CLUSTER_NAME "||\n"  $AWS_REGION "||\n"  $ACCOUNT_ID  "||\n" $TEMPOUT  "||\n"  $IAM_KEDA_ROLE  "||\n" $IAM_KEDA_SQS_POLICY  "||\n" $SERVICE_ACCOUNT  "||\n" $NAMESPACE  "||\n" $SQS_TARGET_NAMESPACE "||\n"  $SQS_TARGET_DEPLOYMENT "||\n"  $SQS_QUEUE_URL 
+        chmod u+x ./deployment/keda/createkeda.sh
         ./deployment/keda/createkeda.sh
 
         echo "${GREEN}Deploy Demo components DynamoDB and SQS!!"
+        chmod u+x ./deployment/services/awsService.sh 
         ./deployment/services/awsService.sh 
     fi 
 else
