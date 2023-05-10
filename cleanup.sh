@@ -20,6 +20,7 @@ else
   echo "${RED}Deleting stacks : ${stack}"
   echo "other stack" 
   aws cloudformation delete-stack --stack-name $stack --region ${AWS_REGION}
+    aws cloudformation wait stack-delete-complete  --region ${AWS_REGION}  --stack-name $stack
 fi
 done
 
