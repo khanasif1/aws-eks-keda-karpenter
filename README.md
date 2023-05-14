@@ -17,7 +17,7 @@ KEDA enables autoscaling of Kubernetes pods based on the number of events in eve
 *** 
 ## Sample Usecase 
 <p align="center">
-  <img  src="https://github.com/khanasif1/aws-eks-with-keda-hpa/blob/main/img/Keda.gif?raw=true">
+  <img  src="https://github.com/khanasif1/aws-eks-keda-karpenter/blob/main/img/Keda.gif?raw=true">
 </p>
 
 ## Prerequisites
@@ -71,9 +71,13 @@ To install KEDA and Karpenter on your AWS EKS cluster, follow these steps:
     ```
 
 5. You will be asked to verfiy the account in context
-
+<p align="center">
+  <img  src="https://github.com/khanasif1/aws-eks-keda-karpenter/blob/main/img/accountverify.jpg?raw=true">
+</p>
 6. Select your deployment option
-
+<p align="center">
+  <img  src="https://github.com/khanasif1/aws-eks-keda-karpenter/blob/main/img/deploymentverify.jpg?raw=true">
+</p>
 
 
 ## Configuration
