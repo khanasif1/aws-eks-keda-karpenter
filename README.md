@@ -4,9 +4,7 @@
 <img src="https://img.shields.io/badge/AWS%20-%23FF9900.svg?&style=for-the-badge&logo=amazon-aws&logoColor=white"/> 
 <img src="https://img.shields.io/badge/docker%20-%230db7ed.svg?&style=for-the-badge&logo=docker&logoColor=white"/>
 </p>
-![AWS](https://img.shields.io/badge/AWS-EKS-orange) 
-![KEDA](https://img.shields.io/badge/KEDA-2.5.0-blue) 
-![Karpenter](https://img.shields.io/badge/Karpenter-0.3.0-green)
+![AWS](https://img.shields.io/badge/AWS-EKS-orange) ![KEDA](https://img.shields.io/badge/KEDA-2.5.0-blue) ![Karpenter](https://img.shields.io/badge/Karpenter-0.3.0-green)
 
 # EKS with KEDA HPA & Karpenter cluster autoscaler
 This repository contains the necessary files and instructions to deploy and configure [KEDA](https://keda.sh/) (Kubernetes-based Event Driven Autoscaling) and [Karpenter](https://github.com/awslabs/karpenter) (Kubernetes Node Autoscaler) on an Amazon Elastic Kubernetes Service (EKS) cluster.
