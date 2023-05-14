@@ -70,6 +70,11 @@ To install KEDA and Karpenter on your AWS EKS cluster, follow these steps:
     sh ./deployment/_main.sh
     ```
 
+5. You will be asked to verfiy the account in context
+
+6. Select your deployment option
+
+
 
 ## Configuration
 
