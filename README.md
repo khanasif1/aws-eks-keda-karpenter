@@ -27,8 +27,9 @@ Before you begin, ensure that you have the following prerequisites:
 - An active AWS account.
 - Kubernetes command-line tool (`kubectl`) installed.
 - [eksctl](https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html)
-- helm installed
-- AWS CLI installed and configured with appropriate IAM credentials.
+- [AWS CLI](https://aws.amazon.com/cli/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- [helm](https://helm.sh/)
 
 ## Installation
 
