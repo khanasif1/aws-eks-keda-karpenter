@@ -95,5 +95,5 @@ This repository is licensed under the [MIT License](LICENSE). Please refer to th
 For any questions or inquiries, please contact:
 
 Your Name  
-Email: [your.email@example.com](mailto:your.email@example.com)  
-Website: [https://yourwebsite.com](https://yourwebsite.com)
+Email: [khanasif1@gmail.com](mailto:khanasif1@gmail.com)  
+Website: [https://khanasif1.wordpress.com](https://khanasif1.wordpress.com/)
