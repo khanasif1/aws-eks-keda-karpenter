@@ -44,28 +44,7 @@ To install KEDA and Karpenter on your AWS EKS cluster, follow these steps:
    cd aws-eks-keda-karpenter
    ```
 
-3. Create the necessary Kubernetes namespaces.
-   ```shell
-   kubectl apply -f namespaces.yaml
-   ```
-
-4. Deploy KEDA to your cluster.
-   ```shell
-   kubectl apply -f keda/
-   ```
-
-5. Deploy Karpenter to your cluster.
-   ```shell
-   kubectl apply -f karpenter/
-   ```
-
-6. Verify that KEDA and Karpenter are running successfully.
-   ```shell
-   kubectl get pods -n keda
-   kubectl get pods -n karpenter
-   ```
-
-7. Configure and deploy autoscaling for your application by following the examples and documentation provided by KEDA and Karpenter.
+3. C
 
 ## Configuration
 
