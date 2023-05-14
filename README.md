@@ -46,7 +46,8 @@ To install KEDA and Karpenter on your AWS EKS cluster, follow these steps:
    ```
 
 3. Update environmentVariables.sh file 
-  | Variable Name               | Description                                                                                         |
+
+| Variable Name               | Description                                                                                         |
 |-----------------------------|-----------------------------------------------------------------------------------------------------|
 | `AWS_REGION`                | The AWS region.                                                                                     |
 | `ACCOUNT_ID`                | The AWS account ID.                                                                                 |
@@ -63,6 +64,7 @@ To install KEDA and Karpenter on your AWS EKS cluster, follow these steps:
 | `SQS_QUEUE_URL`             | The URL of the SQS queue.                                                                           |
 | `SQS_TARGET_DEPLOYMENT`     | The target deployment for KEDA to scale based on SQS messages.                                      |
 | `SQS_TARGET_NAMESPACE`      | The target namespace for the deployment that KEDA scales based on SQS messages.                     |
+
 4. To strat deployment run
     ```shell
     sh ./deployment/_main.sh
