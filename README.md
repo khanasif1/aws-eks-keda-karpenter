@@ -74,7 +74,9 @@ To install KEDA and Karpenter on your AWS EKS cluster, follow these steps:
 <p align="center">
   <img  src="https://github.com/khanasif1/aws-eks-keda-karpenter/blob/main/img/accountverify.jpg?raw=true">
 </p>
+
 6. Select your deployment option
+
 <p align="center">
   <img  src="https://github.com/khanasif1/aws-eks-keda-karpenter/blob/main/img/deploymentverify.jpg?raw=true">
 </p>
